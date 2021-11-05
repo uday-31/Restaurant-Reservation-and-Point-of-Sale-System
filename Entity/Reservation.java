@@ -3,18 +3,32 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Represents a reservation made at the restaurant.
+ */
 public class Reservation {
 
+	private static int expiryMins = 30;
+
+	/**
+	 * Serial number of the reservation.
+	 */
 	private int resID;
+	
+	/**
+	 * Time of the reservation.
+	 */
 	private Date resTime;
+	
+	/**
+	 * Whether the reservation is valid.
+	 */
 	private boolean isValid;
 	private int paxSize;
 	private String name;
 	private String contactNo;
 	private Table assignedTable;
 	private String memberID;
-	private static final int expiryMins = 30; 
-
 	/**
 	 * 
 	 * @param resID
@@ -118,39 +132,28 @@ public class Reservation {
 		this.assignedTable = assignedTable;
 	}
 
-	public Date calculateExpiryTime() {
-		Calendar cal = Calendar.getInstance(); 
-		cal.setTime(resTime);               
-		cal.add(Calendar.HOUR_OF_DAY, 1);      // adds one hour
-		return cal.getTime();  
-	}
-
-	public boolean getisValid() {
+	public boolean getIsValid() {
 		return this.isValid;
 	}
 	
-	public boolean updateValidity() {
-		boolean updatedValidity;
-		Date curDate = new Date();  //gets current date
-		if (calculateExpiryTime().after(curDate)) {
-			this.isValid = false;
-			updatedValidity = false;
-		}
-		else {
-			this.isValid = true;
-			updatedValidity = true;
-		}
-		return updatedValidity;
+	/**
+	 * @param isValid the isValid to set
+	 */
+	public void setIsValid(boolean isValid) {
+		this.isValid = isValid;
 	}
-	
+
 	public String getMemberID() {
 		return this.memberID;
 	}
 	
-	public void displayReservationDetails() {
-		System.out.println("complete later");
+	/**
+	 * @param memberID the memberID to set
+	 */
+	public void setMemberID(String memberID) {
+		this.memberID = memberID;
 	}
-	
+
 	public void resetReservation() {
 		this.resID = -1;
 		this.assignedTable.setIsOccupied(false);
@@ -159,10 +162,6 @@ public class Reservation {
 		this.name = "";
 		this.contactNo = "";
 		this.memberID = "";
-	}
-	
-	private void assignTable() {
-		
 	}
 	
 	public void display() {
@@ -192,6 +191,45 @@ public class Reservation {
 			System.out.println("Reservation invalid");
 		}
 		
+		
+	}
+
+	/**
+	 * @return the expiryMins
+	 */
+	public static int getExpiryMins() {
+		return expiryMins;
+	}
+
+	/**
+	 * @param expiryMins the expiryMins to set
+	 */
+	public static void setExpiryMins(int expiryMins) {
+		Reservation.expiryMins = expiryMins;
+	}
+
+	public Date calculateExpiryTime() {
+		Calendar cal = Calendar.getInstance(); 
+		cal.setTime(resTime);               
+		cal.add(Calendar.HOUR_OF_DAY, 1);      // adds one hour
+		return cal.getTime();  
+	}
+
+	public boolean updateValidity() {
+		boolean updatedValidity;
+		Date curDate = new Date();  //gets current date
+		if (calculateExpiryTime().after(curDate)) {
+			this.isValid = false;
+			updatedValidity = false;
+		}
+		else {
+			this.isValid = true;
+			updatedValidity = true;
+		}
+		return updatedValidity;
+	}
+
+	private void assignTable() {
 		
 	}
 

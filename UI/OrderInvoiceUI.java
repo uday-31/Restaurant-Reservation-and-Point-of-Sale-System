@@ -34,9 +34,9 @@ public class OrderInvoiceUI {
 		System.out.println("***** Invoice *****");
 		System.out.println("Billing time: " + timestamp);
 		this.order.display();
-		System.out.println("Service charge: "+this.serviceCharge);
-		System.out.println("GST: "+this.gsTax);
-		System.out.println("Member discount: -"+this.memberDiscount);
+		System.out.println("Service charge ("+serviceChargeRate*100+"%): "+this.serviceCharge);
+		System.out.println("GST ("+gsTaxRate*100+"%): "+this.gsTax);
+		System.out.println("Member discount ("+memberDiscountRate*100+"%): -"+this.memberDiscount);
 		System.out.println();
 		System.out.println("Total: "+this.finalCost);
 		

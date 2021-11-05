@@ -10,15 +10,44 @@ import java.text.SimpleDateFormat;
 
 import UI.OrderInvoiceUI;
 
+/**
+ * Represents the restaurant and contains its entities.
+ */
 public class Restaurant {
 
+	/**
+	 * Tables present in the restaurant.
+	 */
 	public static ArrayList<Table> tables;
+	
+	/**
+	 * Menu of the restaurant.
+	 */
 	public static Menu menu;
+	
+	/**
+	 * Orders handled by the restaurant.
+	 */
 	public static ArrayList<Order> orders;
+	
+	/**
+	 * Invoices for orders completed at the restaurant.
+	 */
 	public static ArrayList<OrderInvoiceUI> invoices;
+	
+	/**
+	 * Staffs employed by the restaurant.
+	 */
 	public static ArrayList<Staff> staffs;
+	
+	/**
+	 * Reservations made at the restaurant.
+	 */
 	public static ArrayList<Reservation> reservations;
 
+	/**
+	 * Initializes the entities present in the restaurant.
+	 */
 	public static void initializeRestaurant() {
 		
 		try {
@@ -37,6 +66,10 @@ public class Restaurant {
 
 	}
 	
+	/**
+	 * Initializes the menu using a datafile.
+	 * @throws FileNotFoundException	If the datafile fails to get generated or isn't present.
+	 */
 	private static void initMenu() throws FileNotFoundException {
 		
 		menu = new Menu();
@@ -132,6 +165,10 @@ public class Restaurant {
 		
 	}
 	
+	/**
+	 * Initializes the tables using a datafile.
+	 * @throws FileNotFoundException	If the datafile fails to get generated or isn't present.
+	 */
 	private static void initTable() throws FileNotFoundException {
 				
 		tables = new ArrayList<Table>();
@@ -180,6 +217,10 @@ public class Restaurant {
 
 	}
 	
+	/**
+	 * Initializes the staffs employed, using a datafile.
+	 * @throws FileNotFoundException	If the datafile fails to get generated or isn't present.
+	 */
 	private static void initStaff() throws FileNotFoundException {
 		
 		staffs = new ArrayList<Staff>();
@@ -230,6 +271,11 @@ public class Restaurant {
 	    input.close();
 	}
 	
+	/**
+	 * Initializes the orders handled, using a datafile.
+	 * @throws FileNotFoundException	If the datafile fails to get generated or isn't present.
+	 * @throws ParseException			If the date in the datafile isn't in the right format.
+	 */
 	private static void initOrders() throws FileNotFoundException, ParseException {
 		
 		orders = new ArrayList<Order>();
@@ -305,6 +351,11 @@ public class Restaurant {
 		
 	}
 	
+	/**
+	 * Initializes the invoices generated, using a datafile
+	 * @throws FileNotFoundException	If the datafile fails to get generated or isn't present.
+	 * @throws ParseException			If the date in the datafile isn't in the right format.
+	 */
 	private static void initInvoices() throws FileNotFoundException, ParseException {
 		
 		invoices = new ArrayList<OrderInvoiceUI>();
@@ -347,6 +398,11 @@ public class Restaurant {
 		input.close();
 	}
 	
+	/***
+	 * Initializes the reservations made, using a datafile.
+	 * @throws FileNotFoundException	If the datafile fails to get generated or isn't present.
+	 * @throws ParseException			If the data in the datafile isn't in the right format.
+	 */
 	private static void initReservations() throws FileNotFoundException, ParseException {
 		
 		reservations = new ArrayList<Reservation>();

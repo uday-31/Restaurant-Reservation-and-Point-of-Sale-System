@@ -1,16 +1,19 @@
-package Controller;
+package UI;
 import java.util.Scanner;
 
+import Controller.MenuController;
+import Controller.OrderController;
+import Controller.ReservationController;
+import Controller.TableController;
 import Entity.Restaurant;
 
 
-public class RestaurantApp {
+public class RestaurantAppUI {
 	public static void main(String[] args)
     {
         int choice;
         int inner_choice;
         Restaurant.initializeRestaurant();
-        Restaurant.invoices.get(0).printInvoice();
      
 		Scanner scanner = new Scanner(System.in);
 		do {
