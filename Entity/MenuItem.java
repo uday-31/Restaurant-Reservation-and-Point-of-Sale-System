@@ -83,7 +83,7 @@ public class MenuItem {
 		this.type = type;
 	}
 	
-	public void displayItem() {
+	public void display() {
 		String type;
 		if (this.type==MenuItemType.MAIN_COURSE) {
 			type = "Main Course";

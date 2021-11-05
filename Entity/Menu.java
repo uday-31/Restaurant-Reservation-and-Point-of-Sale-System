@@ -40,15 +40,15 @@ public class Menu {
 		this.promotionSets.add(promotionSet);
 	}
 	
-	public void displayMenu() {
+	public void display() {
 		System.out.println("Menu items: ");
 		for(int i=0; i<this.menuItems.size(); ++i) {
-			this.menuItems.get(i).displayItem();
+			this.menuItems.get(i).display();
 		}
 		System.out.println();
 		System.out.println("Promotion sets: ");
 		for(int i=0; i<this.promotionSets.size(); ++i) {
-			this.promotionSets.get(i).displaySet();
+			this.promotionSets.get(i).display();
 		}
 	}
 

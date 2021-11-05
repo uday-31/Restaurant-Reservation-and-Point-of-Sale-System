@@ -10,7 +10,7 @@ public class RestaurantApp {
         int choice;
         int inner_choice;
         Restaurant.initializeRestaurant();
-        Restaurant.menu.displayMenu();
+        Restaurant.invoices.get(0).printInvoice();
      
 		Scanner scanner = new Scanner(System.in);
 		do {

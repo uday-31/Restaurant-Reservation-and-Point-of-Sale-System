@@ -20,22 +20,21 @@ public class Restaurant {
 	public static ArrayList<Reservation> reservations;
 
 	public static void initializeRestaurant() {
+		
 		try {
 			initMenu();
 			initTable();
 			initStaff();
 			initOrders();
+			initReservations();
+			initInvoices();
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
-		//
-		//
-		//
-		//initInvoices();
-		//initReservations();
 	}
 	
 	private static void initMenu() throws FileNotFoundException {
@@ -144,11 +143,11 @@ public class Restaurant {
 				PrintWriter writer = new PrintWriter("Data/tables.txt", "UTF-8");
 				int j = 1;
 				for(int i = 0; i < 5; i++){
-					writer.println(j+"_4");
+					writer.println(j+"_2");
 					j++;
 				}
 				for(int i = 0; i < 5; i++){
-					writer.println(j+"_8");
+					writer.println(j+"_5");
 					j++;
 				}
 				for(int i = 0; i < 5; i++){
@@ -241,9 +240,9 @@ public class Restaurant {
 		try {
 			if (tempFile.createNewFile()) {
 				PrintWriter writer = new PrintWriter("Data/orders.txt", "UTF-8");
-				writer.println("1_1_4_1_1_2_1_3_1_true_1_1_01/01/2021 13:00:00");
-				writer.println("2_2_5_0_true_1_2_2_2_02/02/2021 15:00:00");
-				writer.println("3_14_4_1_2_5_1_true_0_03/03/2021 20:00:00");
+				writer.println("1_1_4_1_1_2_1_3_1_true_1_1_01/01/2021 13:00:00_A987654567");
+				writer.println("2_2_5_0_true_1_2_2_2_02/02/2021 15:00:00_A765434565");
+				writer.println("3_14_4_1_2_5_1_true_0_03/03/2021 20:00:00_0");
 				writer.close();
 			}
 			tempFile = new File("Data/orders.txt");
@@ -291,31 +290,107 @@ public class Restaurant {
 	        
 	        Date timestamp = format.parse(input.next());
 	        
-	        orders.add(new Order(orderID, table, staff, orderedItems, orderedSets, completed, timestamp));
+	        String memberID = input.next();
+	        
+	        if(Objects.equals(memberID,"0")) {
+	        	orders.add(new Order(orderID, table, staff, orderedItems, orderedSets, completed, timestamp));
+	        }
+	        else {
+	        	orders.add(new Order(orderID, table, staff, orderedItems, orderedSets, completed, timestamp, memberID));
+	        }
+	        
 	    }
 	 
 	    input.close();
 		
 	}
 	
-	private static void initInvoices() {
-		OrderInvoiceUI orderInvoiceUI_1 = new OrderInvoiceUI(new Date(), false, orders.get(0));
-		OrderInvoiceUI orderInvoiceUI_2 = new OrderInvoiceUI(new Date(), false, orders.get(1));
-		OrderInvoiceUI orderInvoiceUI_3 = new OrderInvoiceUI(new Date(), false, orders.get(2));
+	private static void initInvoices() throws FileNotFoundException, ParseException {
 		
-		invoices.add(orderInvoiceUI_1);
-		invoices.add(orderInvoiceUI_2);
-		invoices.add(orderInvoiceUI_3);
+		invoices = new ArrayList<OrderInvoiceUI>();
+		
+		File tempFile = new File("Data/invoices.txt");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		try {
+			if (tempFile.createNewFile()) {
+				PrintWriter writer = new PrintWriter("Data/invoices.txt", "UTF-8");
+				writer.println("1_01/01/2021 14:80:00");
+				writer.println("2_02/02/2021 16:90:00");
+				writer.println("3_03/03/2021 21:10:00");
+				writer.close();
+			}
+			tempFile = new File("Data/invoices.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	     
+		Scanner input = new Scanner(tempFile);
+	    input.useDelimiter("_|\n");
+	    
+		while(input.hasNext()) {
+	        
+
+	        int nextInt = input.nextInt() - 1;
+	        Order thisOrder = (orders.get(nextInt));
+	        
+	        Date timestamp = format.parse(input.next());
+	        
+	        OrderInvoiceUI invoice = new OrderInvoiceUI(timestamp, thisOrder);
+	        invoices.add(invoice);
+	    }
+		
+		input.close();
 	}
 	
-	private static void initReservations() {
-		// note that these reservations have not been assigned to table yet
-		Reservation reservation_1 = new Reservation(1, new Date(), 4, "John", "93748245", "A0840382");
-		Reservation reservation_2 = new Reservation(2, new Date(), 2, "Wendy", "92844720", "A2635271");
-		Reservation reservation_3 = new Reservation(3, new Date(), 8, "Felix", "99504832", "A7402738");
+	private static void initReservations() throws FileNotFoundException, ParseException {
 		
-		reservations.add(reservation_1);
-		reservations.add(reservation_2);
-		reservations.add(reservation_3);
+		reservations = new ArrayList<Reservation>();
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		File tempFile = new File("Data/reservations.txt");
+		
+		try {
+			if (tempFile.createNewFile()) {
+				PrintWriter writer = new PrintWriter("Data/reservations.txt", "UTF-8");
+				writer.println("1_01/01/2021 13:00:00_4_Ryan_88889999_A098765456");
+				writer.println("2_12/11/2021 20:00:00_2_Kim_65789876_A876545678");
+				writer.println("3_13/11/2021 19:00:00_10_Kanye_97674432_A098764321");
+				writer.close();
+			}
+			tempFile = new File("Data/reservations.txt");
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		Scanner input = new Scanner(tempFile);
+	    input.useDelimiter("_|\n");
+
+	    while(input.hasNext()) {
+	        
+	    	int resID = input.nextInt();
+	    	Date timestamp;
+			
+			timestamp = format.parse(input.next());
+			
+	    	int paxSize = input.nextInt();
+	        String name = input.next();
+	        String contactNo = input.next();
+	        String memberID = input.next();
+	        
+	        reservations.add(new Reservation(resID, timestamp, paxSize, name, contactNo, memberID));
+	    }
+	 
+	    input.close();
+		
 	}
 }

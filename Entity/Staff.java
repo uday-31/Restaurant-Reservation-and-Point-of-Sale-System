@@ -67,5 +67,14 @@ public class Staff {
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
 	}
+	
+	public void display() {
+		System.out.println();
+		System.out.println("***Staff Details***");
+		System.out.println("Employee ID: "+this.employeeID);
+		System.out.println("Name: "+this.name);
+		System.out.println("Gender: "+this.gender);
+		System.out.println("Job title: "+this.jobTitle);
+	}
 
 }

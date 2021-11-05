@@ -86,7 +86,7 @@ public class PromotionSet {
 		this.desc = desc;
 	}
 	
-	public void displaySet() {
+	public void display() {
 		System.out.print(this.promoID + ". "+this.name+" : ");
 		for(int i=0; i<this.promoItems.size(); ++i) {
 			System.out.print(this.promoItems.get(i).getName()+" ");

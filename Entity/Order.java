@@ -13,6 +13,7 @@ public class Order {
 	private double totalCost;
 	private boolean completed;
 	private Date timestamp;
+	private String memberID;
 
 	/**
 	 * 
@@ -22,14 +23,28 @@ public class Order {
 	 * @param orderedItems
 	 * @param orderedSets
 	 */
+	public Order(int orderID, Table table, Staff creator, ArrayList<OrderedItem> orderedItems, ArrayList<OrderedSet> orderedSets, boolean completed, Date timestamp, String memberID) {
+		this.orderID = orderID;
+		this.table = table;
+		this.creator = creator;
+		this.orderedItems = orderedItems;
+		this.orderedSets = orderedSets;
+		this.timestamp =timestamp;
+		this.completed = completed;
+		this.memberID = memberID;
+		computeTotalCost();
+	}
+	
 	public Order(int orderID, Table table, Staff creator, ArrayList<OrderedItem> orderedItems, ArrayList<OrderedSet> orderedSets, boolean completed, Date timestamp) {
 		this.orderID = orderID;
 		this.table = table;
 		this.creator = creator;
 		this.orderedItems = orderedItems;
 		this.orderedSets = orderedSets;
-		this.timestamp = timestamp;
+		this.timestamp =timestamp;
 		this.completed = completed;
+		this.memberID = "";
+		computeTotalCost();
 	}
 
 	public int getOrderID() {
@@ -43,10 +58,24 @@ public class Order {
 	public void setOrderID(int orderID) {
 		this.orderID = orderID;
 	}
+	
+	public String getMemberID() {
+		return this.memberID;
+	}
+
+	/**
+	 * 
+	 * @param memberID
+	 */
+	public void setMemberID(String memberID) {
+		this.memberID = memberID;
+	}
 
 	public Staff getCreator() {
 		return this.creator;
 	}
+
+
 
 	/**
 	 * 
@@ -137,11 +166,11 @@ public class Order {
 
 	public void computeTotalCost() {
 		for (int i=0; i <orderedItems.size(); i++) {
-			totalCost += orderedItems.get(i).getCost();
+			this.totalCost += orderedItems.get(i).getCost();
 		}
 		
 		for (int j=0; j <orderedSets.size(); j++) {
-			totalCost += orderedSets.get(j).getCost();
+			this.totalCost += orderedSets.get(j).getCost();
 		}
 	}
 	
@@ -184,6 +213,34 @@ public class Order {
 	 */
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+	
+	public void display() {
+		System.out.println();
+		System.out.println("***Order Details***");
+		System.out.println("Time: "+this.timestamp);
+		System.out.println("Server: "+this.creator.getName());
+		System.out.println("Table: "+this.table.getTableID());
+		if(memberID.length()>0) {
+			System.out.println("Member ID: "+this.memberID);
+		}
+		System.out.println();
+		if(this.orderedItems.size()>0) {
+			System.out.println("Ordered items: ");
+			for(int i=0; i<this.orderedItems.size(); ++i) {
+				this.orderedItems.get(i).display();
+			}
+		}
+		System.out.println();
+		if(this.orderedSets.size()>0) {
+			System.out.println("Ordered sets: ");
+			for(int i=0; i<this.orderedSets.size(); ++i) {
+				this.orderedSets.get(i).display();
+			}
+		}
+		System.out.println();
+		System.out.println("Sub-total: "+this.totalCost);
+		
 	}
 
 }

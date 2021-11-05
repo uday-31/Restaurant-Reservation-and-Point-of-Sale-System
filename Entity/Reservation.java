@@ -1,6 +1,7 @@
 package Entity;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Reservation {
 
@@ -12,6 +13,7 @@ public class Reservation {
 	private String contactNo;
 	private Table assignedTable;
 	private String memberID;
+	private static final int expiryMins = 30; 
 
 	/**
 	 * 
@@ -29,6 +31,19 @@ public class Reservation {
 		this.name = name;
 		this.contactNo = contactNo;
 		this.memberID = memberID;
+		this.isValid = true;
+		assignTable();
+	}
+	
+	public Reservation(int resID, Date resTime, int paxSize, String name, String contactNo) {
+		this.resID = resID;
+		this.resTime = resTime;
+		this.paxSize = paxSize;
+		this.name = name;
+		this.contactNo = contactNo;
+		this.memberID = "";
+		this.isValid = true;
+		assignTable();
 	}
 
 	public int getResID() {
@@ -144,6 +159,40 @@ public class Reservation {
 		this.name = "";
 		this.contactNo = "";
 		this.memberID = "";
+	}
+	
+	private void assignTable() {
+		
+	}
+	
+	public void display() {
+		System.out.println();
+		System.out.println("***Reservation Details***");
+		System.out.println("ID: "+this.resID);
+		System.out.println("Name: "+this.name);
+		System.out.println("Size: "+this.paxSize+" pax");
+		System.out.println("Time: "+this.resTime);
+		System.out.println("Contact number: "+this.contactNo);
+		if(this.memberID.length()>0) {
+			System.out.println("Membership number: "+this.memberID);
+		}
+		else {
+			System.out.println("Not a member");
+		}
+		if(this.isValid)  {
+			System.out.println("Reservation valid until "+ new Date((this.resTime.getTime() + TimeUnit.MINUTES.toMillis(expiryMins))));
+			if(this.assignedTable!=null) {
+				System.out.println("Assigned table: "+this.assignedTable.getTableID());
+			}
+			else {
+				System.out.println("No assigned table");
+			}
+		}
+		else {
+			System.out.println("Reservation invalid");
+		}
+		
+		
 	}
 
 }

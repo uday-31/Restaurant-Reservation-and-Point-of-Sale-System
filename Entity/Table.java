@@ -95,8 +95,26 @@ public class Table {
 		this.currentOrder = currentOrder;
 	}
 	
-	public void displayTable() {
-		
+	public void display() {
+		System.out.println();
+		System.out.println("***Table Details***");
+		System.out.println("Table number "+this.tableID);
+		System.out.println("Table size: "+this.tableSize);
+		System.out.print("Occupied: ");
+		if(this.isOccupied)
+			System.out.println("yes");
+		else
+			System.out.println("no");
+		System.out.print("Reserved: ");
+		if(this.isReserved) {
+			System.out.println("yes");
+			System.out.println("Reservation details: "+this.reservation.getName()+", "+this.reservation.getPaxSize()+" pax");
+		}
+		else
+			System.out.println("no");
+		if(this.currentOrder!=null) {
+			System.out.println("Current order: "+this.currentOrder.getCreator()+" "+this.currentOrder.getTimestamp());
+		}
 	}
 
 

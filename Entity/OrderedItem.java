@@ -49,5 +49,8 @@ public class OrderedItem {
 		this.cost = this.quantity * this.menuItem.getPrice();
 	}
 	
+	public void display() {
+		System.out.println(this.quantity+" "+this.menuItem.getName()+" | "+this.cost);
+	}
 
 }

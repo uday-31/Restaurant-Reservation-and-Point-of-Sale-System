@@ -1,5 +1,6 @@
 package UI;
 import java.util.Date;
+import java.util.Objects;
 
 import Entity.Order;
 import Entity.Table;
@@ -7,9 +8,12 @@ import Entity.Table;
 public class OrderInvoiceUI {
 
 	private Date timestamp;
+	private static double serviceChargeRate = 0.1;
+	private static double gsTaxRate = 0.09;
+	private static double memberDiscountRate = 0.1;
 	private double serviceCharge;
 	private double gsTax;
-	private boolean isMember;
+	private double memberDiscount;
 	private double finalCost;
 	private Order order;
 	private Table table;
@@ -17,43 +21,39 @@ public class OrderInvoiceUI {
 	/**
 	 * 
 	 * @param timestamp
-	 * @param isMember
 	 * @param order
 	 */
-	public OrderInvoiceUI(Date timestamp, boolean isMember, Order order) {
+	public OrderInvoiceUI(Date timestamp, Order order) {
 		this.timestamp = timestamp;
-		this.isMember = isMember;
 		this.order = order;
+		computeFinalCost();
 	}
 
 	public void printInvoice() {
 		System.out.println();
-		System.out.println("***** Invoice ******");
-		System.out.println("Timestamp: " + timestamp);
-		System.out.println("Table no: " + table.getTableID());
-		
-		System.out.println("***** List of Ordered Items *****");
-		for (int i=0; i<order.getOrderedItems().size(); i++) {
-			order.viewOrderedItem(i);
-		}
-		
-		System.out.println("***** List of Ordered Sets *****");
-		for (int j=0; j<order.getOrderedSets().size(); j++) {
-			order.viewOrderedSet(j);
-		}
+		System.out.println("***** Invoice *****");
+		System.out.println("Billing time: " + timestamp);
+		this.order.display();
+		System.out.println("Service charge: "+this.serviceCharge);
+		System.out.println("GST: "+this.gsTax);
+		System.out.println("Member discount: -"+this.memberDiscount);
+		System.out.println();
+		System.out.println("Total: "+this.finalCost);
 		
 		
 	}
 
 	public void computeFinalCost() {
-		if (isMember == true) {
-			finalCost = order.getTotalCost() * 0.9 * (1 + serviceCharge + gsTax); //offer 10% discount if member
+		if (!Objects.equals(this.order.getMemberID(),"")) {
+			this.memberDiscount = Math.round(this.order.getTotalCost() * memberDiscountRate*100.0)/100.0;
 		}
 		else {
-			finalCost = order.getTotalCost() * (1 + serviceCharge + gsTax);
+			this.memberDiscount = 0;
 		}
+		this.serviceCharge = Math.round(this.order.getTotalCost() * serviceChargeRate*100.0)/100.0;
+		this.gsTax = Math.round(this.order.getTotalCost() * gsTaxRate*100.0)/100.0;
 		
-		
+		this.finalCost = Math.round((this.order.getTotalCost()+this.gsTax+this.serviceCharge-this.memberDiscount)*100.0)/100.0;
 		
 		
 	}
@@ -70,40 +70,28 @@ public class OrderInvoiceUI {
 		this.timestamp = timestamp;
 	}
 
-	public double getServiceCharge() {
-		return this.serviceCharge;
+	public static double getServiceChargeRate() {
+		return serviceChargeRate;
 	}
 
 	/**
 	 * 
 	 * @param serviceCharge
 	 */
-	public void setServiceCharge(int serviceCharge) {
-		this.serviceCharge = serviceCharge;
+	public static void setServiceChargeRate(double serviceCharge) {
+		serviceChargeRate = serviceCharge;
 	}
 
-	public double getGsTax() {
-		return this.gsTax;
+	public static double getGsTaxRate() {
+		return gsTaxRate;
 	}
 
 	/**
 	 * 
 	 * @param gsTax
 	 */
-	public void setGsTax(int gsTax) {
-		this.gsTax = gsTax;
-	}
-
-	public boolean getIsMember() {
-		return this.isMember;
-	}
-
-	/**
-	 * 
-	 * @param isMember
-	 */
-	public void setIsMember(boolean isMember) {
-		this.isMember = isMember;
+	public static void setGsTaxRate(double gsTax) {
+		gsTaxRate = gsTax;
 	}
 
 	public double getFinalCost() {
@@ -140,6 +128,38 @@ public class OrderInvoiceUI {
 	 */
 	public void setTable(Table table) {
 		this.table = table;
+	}
+
+	public double getServiceCharge() {
+		return serviceCharge;
+	}
+
+	public void setServiceCharge(double serviceCharge) {
+		this.serviceCharge = serviceCharge;
+	}
+
+	public double getGsTax() {
+		return gsTax;
+	}
+
+	public void setGsTax(double gsTax) {
+		this.gsTax = gsTax;
+	}
+
+	public static double getMemberDiscountRate() {
+		return memberDiscountRate;
+	}
+
+	public static void setMemberDiscountRate(double memberDiscountRate) {
+		OrderInvoiceUI.memberDiscountRate = memberDiscountRate;
+	}
+
+	public double getMemberDiscount() {
+		return memberDiscount;
+	}
+
+	public void setMemberDiscount(double memberDiscount) {
+		this.memberDiscount = memberDiscount;
 	}
 
 }

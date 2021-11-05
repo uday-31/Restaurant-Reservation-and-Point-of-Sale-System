@@ -49,5 +49,9 @@ public class OrderedSet {
 	public void computeCost() {
 		this.cost = quantity * promotionSet.getPrice();
 	}
+	
+	public void display() {
+		System.out.println(this.quantity+" "+this.promotionSet.getName()+" | "+this.cost);
+	}
 
 }
