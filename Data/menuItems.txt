@@ -1,0 +1,6 @@
+1_Fries_Cripsy golden-brown french fries_1.0_APPETISER
+2_Chicken Burger_Burger with two patties of chicken, a slice of cheese and mayonnaise_5.0_MAINCOURSE
+3_Beef Burger_Burger with a juicy beef patty and barbeque sauce_7.5_MAINCOURSE
+4_Iced Lemon Tea_Iced tea with lemon juice_2.5_DRINK
+5_Coke_Iced Coca Cola_1.5_DRINK
+6_Brownie and Ice Cream_Hot brownie paired with ice cream_8.0_DESSERT

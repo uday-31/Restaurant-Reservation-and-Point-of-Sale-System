@@ -1,0 +1,5 @@
+1_Jake_MALE_Co-owner
+2_Amy_FEMALE_Co-owner
+3_Olivia_FEMALE_Cashier
+4_Louis_MALE_Waiter
+5_Emma_FEMALE_Waitress
