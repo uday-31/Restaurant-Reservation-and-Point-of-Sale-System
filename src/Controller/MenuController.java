@@ -131,12 +131,19 @@ public class MenuController {
 
 	/**
 	 * Displays the menu item with the given ID.
-	 * @param id	the ID of the menu item
+	 * @param id	the ID of the menu item, 0 if all
 	 * @return		1 if successfully displayed, -1 if item not found
 	 */
 	public int viewMenuItem(int id) {
 		
 		ArrayList<MenuItem> currItems = menu.getMenuItems();
+		
+		if(id==0) {
+			for(int i=0; i<currItems.size(); ++i) {
+				currItems.get(i).display();
+			}
+			return 1;
+		}
 		
 		for(int i=0; i<menu.getMenuItems().size(); ++i) {
 			if(currItems.get(i).getItemID()==id) {
@@ -155,7 +162,11 @@ public class MenuController {
 	 * @param desc			the description of the set
 	 * @param price			the price of the set
 	 */
-	public void createPromotionSet(int promoID, String name, ArrayList<MenuItem> promoItems, String desc, double price) {
+	public void createPromotionSet(int promoID, String name, ArrayList<Integer> indices, String desc, double price) {
+		ArrayList<MenuItem> promoItems = new ArrayList<MenuItem>();
+		for(int i=0; i<indices.size();++i) {
+			promoItems.add(menu.getMenuItems().get(indices.get(i)-1));
+		}
 		PromotionSet newSet = new PromotionSet(promoID, name, promoItems, desc, price);
 		menu.addPromotionSet(newSet);
 	}
@@ -183,9 +194,10 @@ public class MenuController {
 	 * @param menuitem	the menu item to be added
 	 * @return		1 if successfully added, -1 if set not found
 	 */
-	public int addItemPromotionSet(int id, MenuItem menuItem) {
+	public int addItemPromotionSet(int id, int idItem) {
 		
 		ArrayList<PromotionSet> currSets = menu.getPromotionSets();
+		MenuItem menuItem = menu.getMenuItems().get(idItem-1);
 		
 		for(int i=0; i<menu.getPromotionSets().size(); ++i) {
 			if(currSets.get(i).getPromoID()==id) {
@@ -227,15 +239,45 @@ public class MenuController {
 		return -1;
 		
 	}
+	
+	/**
+	 * Updates the promotion set's details
+	 * @param id	the id of the set
+	 * @param name	the new name of the set
+	 * @param desc	the new description of the set
+	 * @param price	the new price of the set
+	 * @return		1 if change is successful, -1 if set not found
+	 */
+	public int updatePromotionSet(int id, String name, String desc, double price) {
+		ArrayList<PromotionSet> currSets = menu.getPromotionSets();
+		
+		for(int i=0; i<menu.getPromotionSets().size(); ++i) {
+			if(currSets.get(i).getPromoID()==id) {
+				currSets.get(i).setDesc(desc);
+				currSets.get(i).setName(name);
+				currSets.get(i).setPrice(price);
+				menu.setPromotionSets(currSets);
+				return 1;
+			}
+		}
+		return -1;
+	}
 
 	/**
 	 * Displays the promotion set with the given ID
-	 * @param id	the ID of the promotion set
+	 * @param id	the ID of the promotion set, 0 if all
 	 * @return		1 if successfully displayed, -1 if set not found
 	 */
 	public int viewPromotionSet(int id) {
 		
 		ArrayList<PromotionSet> currSets = menu.getPromotionSets();
+		
+		if(id==0) {
+			for(int i=0; i<currSets.size(); ++i) {
+				currSets.get(i).display();
+			}
+			return 1;
+		}
 		
 		for(int i=0; i<menu.getPromotionSets().size(); ++i) {
 			if(currSets.get(i).getPromoID()==id) {

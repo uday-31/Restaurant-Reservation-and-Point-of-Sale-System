@@ -134,8 +134,8 @@ public class PromotionSet {
 	public void display() {
 		System.out.print(this.promoID + ". "+this.name+" : ");
 		for(int i=0; i<this.promoItems.size(); ++i) {
-			System.out.print(this.promoItems.get(i).getName()+" ");
+			System.out.print(this.promoItems.get(i).getName()+" | ");
 		}
-		System.out.println("| "+desc+" | "+price);
+		System.out.println(desc+" | "+price);
 	}
 }
