@@ -33,11 +33,27 @@ public class Menu {
 	}
 
 	/**
+	 * Updates the list of menu items.
+	 * @param menuItems the new list of menu items
+	 */
+	public void setMenuItems(ArrayList<MenuItem> menuItems) {
+		this.menuItems = menuItems;
+	}
+
+	/**
 	 * Adds an item to this menu.
 	 * @param menuItems	the item to be added
 	 */
 	public void addMenuItem(MenuItem menuItem) {
 		this.menuItems.add(menuItem);
+	}
+	
+	/**
+	 * Removes an item from this menu.
+	 * @param idx	the index of the item to be removed
+	 */
+	public void removeMenuItem(int idx) {
+		this.menuItems.remove(idx);
 	}
 
 	/**
@@ -49,11 +65,27 @@ public class Menu {
 	}
 
 	/**
+	 * Updates the list of promotion sets in the menu.
+	 * @param promotionSets the new list of promotion sets
+	 */
+	public void setPromotionSets(ArrayList<PromotionSet> promotionSets) {
+		this.promotionSets = promotionSets;
+	}
+
+	/**
 	 * Adds a set to this menu.
 	 * @param promotionSets	the set to be added
 	 */
 	public void addPromotionSet(PromotionSet promotionSet) {
 		this.promotionSets.add(promotionSet);
+	}
+	
+	/**
+	 * Removes a promotion set from this menu.
+	 * @param idx	the index of the set to be removed
+	 */
+	public void removePromotionSet(int idx) {
+		this.promotionSets.remove(idx);
 	}
 	
 	/**
