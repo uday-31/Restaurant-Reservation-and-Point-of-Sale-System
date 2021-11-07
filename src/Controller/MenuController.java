@@ -78,7 +78,7 @@ public class MenuController {
 	 * @param desc	the new description of the menu item
 	 * @return		1 if successfully updated, -1 if item not found
 	 */
-	public int updateMenuItem(int id, String desc) {
+	public int updateMenuItemDesc(int id, String desc) {
 		ArrayList<MenuItem> currItems = menu.getMenuItems();
 		
 		for(int i=0; i<menu.getMenuItems().size(); ++i) {
