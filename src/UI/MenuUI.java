@@ -1,5 +1,6 @@
 package UI;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -62,6 +63,62 @@ public class MenuUI {
 					
 				case 7:
 					displayMenuItems(scanner, mc);
+					break;
+				
+				default:
+					return;
+			
+			}
+			
+			System.out.println();
+			System.out.println("Press return to continue.");
+			scanner.nextLine();
+			
+		} while (inner_choice !=0);
+		
+	}
+	
+	/**
+	 * Provides the create, update, and remove promotion set functionality.
+	 * @param scanner	the input scanner
+	 * @param mc		the menu controller class
+	 */
+	public static void createUpdateRemovePromotionSet(Scanner scanner, MenuController mc) {
+		
+		int inner_choice;
+		
+		do {
+			System.out.println();
+			System.out.println("[1] - Create Promotion Set");
+			System.out.println("[2] - Add Menu Item to Promotion Set");
+			System.out.println("[3] - Remove Menu Item from Promotion Set");
+			System.out.println("[4] - Update Promotion Set");
+			System.out.println("[5] - Display Promotion Set");
+			System.out.println("[0] - Go back");
+			System.out.println();
+			System.out.print("Enter your choice: ");
+			
+			inner_choice = scanner.nextInt();
+			
+			switch(inner_choice) {
+				case 1:
+					createPromotionSet(scanner, mc);
+					break;
+					
+				case 2:
+					addItemToSet(scanner, mc);
+					break;
+					
+				case 3:
+					removeItemFromSet(scanner, mc);
+					break;
+					
+				case 4:
+					updateSet(scanner, mc);
+					break;
+					
+				case 5:
+					displaySet(scanner, mc);
 					break;
 				
 				default:
@@ -246,6 +303,129 @@ public class MenuUI {
 		}
 		else {
 			System.out.println("Item not found.");
+		}
+	}
+	
+	/**
+	 * Create promotion set.
+	 * @param scanner	the input scanner
+	 * @param mc		an object of MenuController class
+	 */
+	private static void createPromotionSet(Scanner scanner, MenuController mc) {
+		System.out.println();
+		System.out.print("Enter the ID of the set: ");
+		int ID = scanner.nextInt();
+		scanner.nextLine(); //to read the return
+		System.out.print("Enter the name of the set: ");
+		String name = scanner.nextLine();
+		System.out.print("Enter the description of the set: ");
+		String desc = scanner.nextLine();
+		System.out.print("Enter the price of the set: ");
+		double price = scanner.nextDouble();
+		scanner.nextLine();
+		System.out.print("Enter the number of menu items in the set: ");
+		int num = scanner.nextInt();
+		scanner.nextLine();
+		int ind;
+		ArrayList<Integer> indices = new ArrayList<Integer>();
+		for (int i=0;i<num;++i) {
+			System.out.print("Enter the item's ID: ");
+			ind = scanner.nextInt();
+			scanner.nextLine();
+			indices.add(ind);
+		}
+		
+		mc.createPromotionSet(ID, name, indices, desc, price);
+		System.out.println("Item created!");
+	
+	}
+	
+	/**
+	 * Adds a menu item to a promotion set.
+	 * @param scanner	the input scanner
+	 * @param mc		an object of MenuController class
+	 */
+	private static void addItemToSet(Scanner scanner, MenuController mc) {
+		System.out.println();
+		System.out.print("Enter the ID of the set to be changed: ");
+		int changeID = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Enter the ID of the menu item to be added: ");
+		int addID = scanner.nextInt();
+		scanner.nextLine();
+		int res=mc.addItemPromotionSet(changeID, addID);
+		if(res==1) {
+			System.out.println("Item added successfully!");
+		}
+		else {
+			System.out.println("Item or set not found.");
+		}
+	}
+	
+	/**
+	 * Removes a menu item from a promotion set.
+	 * @param scanner	the input scanner
+	 * @param mc		an object of MenuController class
+	 */
+	private static void removeItemFromSet(Scanner scanner, MenuController mc) {
+		System.out.println();
+		System.out.print("Enter the ID of the set to be changed: ");
+		int changeID = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Enter the ID of the menu item to be removed: ");
+		int removeID = scanner.nextInt();
+		scanner.nextLine();
+		int res=mc.removeItemPromotionSet(changeID, removeID);
+		if(res==1) {
+			System.out.println("Item removed successfully!");
+		}
+		else {
+			System.out.println("Item or set not found.");
+		}
+	}
+	
+	/**
+	 * Updates a promotion set.
+	 * @param scanner	the input scanner
+	 * @param mc		an object of MenuController class
+	 */
+	private static void updateSet(Scanner scanner, MenuController mc) {
+		System.out.println();
+		System.out.print("Enter the ID of the set to be updated: ");
+		int changeID = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Enter the name of the set: ");
+		String newName = scanner.nextLine();
+		System.out.print("Enter the description of the set: ");
+		String newDesc = scanner.nextLine();
+		System.out.print("Enter the price of the set: ");
+		double newPrice = scanner.nextDouble();
+		scanner.nextLine();
+		int res = mc.updatePromotionSet(changeID, newName, newDesc, newPrice);
+		if(res==1) {
+			System.out.println("Set updated!");
+		}
+		else {
+			System.out.println("Set not found.");
+		}
+	}
+	
+	/**
+	 * Displays a promotion set.
+	 * @param scanner	the input scanner
+	 * @param mc		an object of MenuController class
+	 */
+	private static void displaySet(Scanner scanner, MenuController mc) {
+		System.out.println();
+		System.out.print("Enter the ID of the set to be viewed (enter 0 if all): ");
+		int viewID = scanner.nextInt();
+		scanner.nextLine();
+		int res=mc.viewPromotionSet(viewID);
+		if(res==1) {
+			System.out.println("Set(s) displayed successfully!");
+		}
+		else {
+			System.out.println("Set not found.");
 		}
 	}
 
