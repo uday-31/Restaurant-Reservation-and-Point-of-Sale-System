@@ -76,7 +76,7 @@ public class RestaurantAppUI {
 					scanner.nextLine();
 					System.out.print("Enter the new name: ");
 					String newName = scanner.nextLine();
-					res=mc.updateMenuItemName(changeID, newName);
+					res=mc.updateMenuItem(changeID, newName);
 					if(res==1) {
 						System.out.println("Name changed successfully!");
 					}
@@ -92,7 +92,7 @@ public class RestaurantAppUI {
 					scanner.nextLine();
 					System.out.print("Enter the new description: ");
 					String newDesc = scanner.nextLine();
-					res=mc.updateMenuItemDesc(changeID_2, newDesc);
+					res=mc.updateMenuItem(changeID_2, newDesc);
 					if(res==1) {
 						System.out.println("Description changed successfully!");
 					}
@@ -109,7 +109,7 @@ public class RestaurantAppUI {
 					System.out.print("Enter the new price: ");
 					double newPrice = scanner.nextDouble();
 					scanner.nextLine();
-					res=mc.updateMenuItemPrice(changeID_3, newPrice);
+					res=mc.updateMenuItem(changeID_3, newPrice);
 					if(res==1) {
 						System.out.println("Price changed successfully!");
 					}
@@ -134,7 +134,7 @@ public class RestaurantAppUI {
 			        	newType = MenuItemType.APPETISER;
 			        else
 			        	newType = MenuItemType.DRINK;
-					res=mc.updateMenuItemType(changeID_4, newType);
+					res=mc.updateMenuItem(changeID_4, newType);
 					if(res==1) {
 						System.out.println("Type changed successfully!");
 					}
