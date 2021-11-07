@@ -59,7 +59,7 @@ public class MenuController {
 	 * @param id	the ID of the menu item
 	 * @param name	the new name of the menu item
 	 */
-	public int updateMenuItemName(int id, String name) {
+	public int updateMenuItem(int id, String name) {
 		ArrayList<MenuItem> currItems = menu.getMenuItems();
 		
 		for(int i=0; i<menu.getMenuItems().size(); ++i) {
@@ -78,7 +78,7 @@ public class MenuController {
 	 * @param desc	the new description of the menu item
 	 * @return		1 if successfully updated, -1 if item not found
 	 */
-	public int updateMenuItemDesc(int id, String desc) {
+	public int updateMenuItem(int id, String desc) {
 		ArrayList<MenuItem> currItems = menu.getMenuItems();
 		
 		for(int i=0; i<menu.getMenuItems().size(); ++i) {
@@ -97,7 +97,7 @@ public class MenuController {
 	 * @param price	the new price of the menu item
 	 * @return		1 if successfully updated, -1 if item not found
 	 */
-	public int updateMenuItemPrice(int id, double price) {
+	public int updateMenuItem(int id, double price) {
 		ArrayList<MenuItem> currItems = menu.getMenuItems();
 		
 		for(int i=0; i<menu.getMenuItems().size(); ++i) {
@@ -116,7 +116,7 @@ public class MenuController {
 	 * @param type	the new type of the menu item
 	 * @return		1 if successfully updated, -1 if item not found
 	 */
-	public int updateMenuItemType(int id, MenuItemType type) {
+	public int updateMenuItem(int id, MenuItemType type) {
 		ArrayList<MenuItem> currItems = menu.getMenuItems();
 		
 		for(int i=0; i<menu.getMenuItems().size(); ++i) {
