@@ -280,7 +280,7 @@ public class MenuUI {
 		scanner.nextLine();
 		int res=mc.removeMenuItem(removeID);
 		if(res==1) {
-			System.out.println("Type removed successfully!");
+			System.out.println("Item removed successfully!");
 		}
 		else {
 			System.out.println("Item not found.");
