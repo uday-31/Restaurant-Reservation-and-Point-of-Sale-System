@@ -7,7 +7,9 @@ import Entity.Restaurant;
 import Entity.Table;
 import UI.OrderInvoiceUI;
 
-
+/**
+ * Controller class handling the restaurant's tables.
+ */
 public class TableController {
 
 	private static ArrayList<Table> tables = Restaurant.tables;

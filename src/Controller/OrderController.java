@@ -11,22 +11,55 @@ import Entity.Restaurant;
 import Entity.Staff;
 import Entity.Table;
 
+/**
+ * Controller class handling the restaurant's orders.
+ */
 public class OrderController {
 
+	/**
+	 * The restaurant's orders.
+	 */
 	private static ArrayList<Order> orders = Restaurant.orders;
+	
+	/**
+	 * The restaurant's menu.
+	 */
 	private static Menu menu = Restaurant.menu;
+	
+	/**
+	 * The restaurant's staffs.
+	 */
 	private static ArrayList<Staff> staffs = Restaurant.staffs;
+	
+	/**
+	 * The restaurant's tables.
+	 */
 	private static ArrayList<Table> tables = Restaurant.tables;
 
 	/**
-	 * 
-	 * @param idxOrder
-	 * @param idxTable
-	 * @param idxCreator
-	 * @param orderedItems
-	 * @param orderedSets
+	 * Creates an order based on the given input.
+	 * @param orderID
+	 * @param table
+	 * @param creator
+	 * @param itemIndices
+	 * @param itemQtys
+	 * @param setIndices
+	 * @param setQtys
 	 */
-	public void createOrder(int orderID, Table table, Staff creator, ArrayList<OrderedItem> orderedItems, ArrayList<OrderedSet> orderedSets)  {
+	public void createOrder(int orderID, int tableID, int creatorID, ArrayList<Integer> itemIndices, ArrayList<Integer> itemQtys, ArrayList<Integer> setIndices, ArrayList<Integer> setQtys)  {
+		Table table = tables.get(tableID-1);
+		Staff creator = staffs.get(creatorID-1);
+		
+		ArrayList<OrderedItem> orderedItems = new ArrayList<OrderedItem>();
+		for(int i=0; i<itemIndices.size();++i) {
+			orderedItems.add(new OrderedItem(itemQtys.get(i), menu.getMenuItems().get(itemIndices.get(i)-1)));
+		}
+		
+		ArrayList<OrderedSet> orderedSets = new ArrayList<OrderedSet>();
+		for(int i=0; i<setIndices.size();++i) {
+			orderedSets.add(new OrderedSet(setQtys.get(i), menu.getPromotionSets().get(setIndices.get(i)-1)));
+		}
+		
 		Order order = new Order(orderID, table, creator, orderedItems, orderedSets);
 		orders.add(order);
 	}
