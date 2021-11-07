@@ -75,7 +75,6 @@ public class ReservationUI {
 	 * Creates a new reservation.
 	 * @param scanner	the input scanner
 	 * @param rc		an object of ReservationController class
-	 * @param tc		an object of TableController class
 	 */
 	public static void checkRemoveReservation(Scanner scanner, ReservationController rc) {
 		

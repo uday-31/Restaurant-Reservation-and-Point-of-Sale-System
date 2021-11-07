@@ -15,6 +15,7 @@ public class OrderUI {
 	 * Creates an order.
 	 * @param scanner	the input scanner
 	 * @param oc		an object of OrderController class
+	 * @param rc		an object of ReservationController class
 	 */
 	public static void createOrder(Scanner scanner, OrderController oc, ReservationController rc) {
 		

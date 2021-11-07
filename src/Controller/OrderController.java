@@ -45,12 +45,13 @@ public class OrderController {
 	/**
 	 * Creates an order based on the given input.
 	 * @param orderID		the ID of the order
-	 * @param resID		the ID of the customer's reservation
+	 * @param resID			the ID of the customer's reservation
 	 * @param creatorID		the ID of the order's creator
 	 * @param itemIndices	the indices of the menu items in the order
 	 * @param itemQtys		the quantities of the respective items
 	 * @param setIndices	the indices of the sets in the order
 	 * @param setQtys		the quantities of the respective sets
+	 * @param memberID		the member ID of the customer, "no" if not a member
 	 * @return 				the table number of the order
 	 */
 	public int createOrder(int orderID, int resID, int creatorID, ArrayList<Integer> itemIndices, ArrayList<Integer> itemQtys, ArrayList<Integer> setIndices, ArrayList<Integer> setQtys, String memberID)  {
@@ -95,7 +96,7 @@ public class OrderController {
 
 	/**
 	 * Displays an order with the given ID.
-	 * @param idxOrder	ID of the order
+	 * @param idOrder	ID of the order
 	 * @return			1 if successfully displayed, -1 if order not found
 	 */
 	public int viewOrder(int idOrder) {

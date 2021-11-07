@@ -42,7 +42,7 @@ public class TableController {
 
 	/**
 	 * Removes a table with the given ID.
-	 * @param table ID	the ID of the table
+	 * @param tableID	the ID of the table
 	 * @return 			1 if table removed successfully, -1 otherwise
 	 */
 	public int removeTable(int tableID) {
@@ -92,8 +92,8 @@ public class TableController {
 
 	/**
 	 * Assigns a table to a given reservation.
-	 * @param reservation	the reservation that needs to be assigned a table
-	 * @return 				the table assigned to the reservation, -1 if no table found
+	 * @param res	the reservation that needs to be assigned a table
+	 * @return 		the table assigned to the reservation, -1 if no table found
 	 */
 	public int assignTable(Reservation res) {
 		for(int i=0; i<Restaurant.tables.size(); ++i) {

@@ -42,7 +42,7 @@ public class Menu {
 
 	/**
 	 * Adds an item to this menu.
-	 * @param menuItems	the item to be added
+	 * @param menuItem	the item to be added
 	 */
 	public void addMenuItem(MenuItem menuItem) {
 		this.menuItems.add(menuItem);
@@ -74,7 +74,7 @@ public class Menu {
 
 	/**
 	 * Adds a set to this menu.
-	 * @param promotionSets	the set to be added
+	 * @param promotionSet	the set to be added
 	 */
 	public void addPromotionSet(PromotionSet promotionSet) {
 		this.promotionSets.add(promotionSet);

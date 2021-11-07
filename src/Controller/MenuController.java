@@ -58,6 +58,7 @@ public class MenuController {
 	 * Updates the name of a menu item with the given ID.
 	 * @param id	the ID of the menu item
 	 * @param name	the new name of the menu item
+	 * @return 		1 if successfully updated, -1 if item not found
 	 */
 	public int updateMenuItem(int id, String name) {
 		ArrayList<MenuItem> currItems = menu.getMenuItems();
@@ -158,7 +159,7 @@ public class MenuController {
 	 * Creates a new promotion set based on the given input.
 	 * @param promoID		the ID of the set
 	 * @param name			the name of the set
-	 * @param promoItems	the items in the set
+	 * @param indices		the IDs of the items in the set
 	 * @param desc			the description of the set
 	 * @param price			the price of the set
 	 */
@@ -191,7 +192,7 @@ public class MenuController {
 	/**
 	 * Adds a menu item to a promotion set with a given ID.
 	 * @param id		the ID of the promotion set
-	 * @param menuitem	the menu item to be added
+	 * @param idItem	the ID of the menu item to be added
 	 * @return		1 if successfully added, -1 if set not found
 	 */
 	public int addItemPromotionSet(int id, int idItem) {

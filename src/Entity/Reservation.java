@@ -233,13 +233,14 @@ public class Reservation {
 	
 	/**
 	 * Updates the validity of the reservation
-	 * @return
+	 * @return	the updated validity
 	 */
 	public boolean updateValidity() {
 		boolean updatedValidity;
 		Date curDate = new Date();  //gets current date
 		if (curDate.after(calculateExpiryTime())) {
 			this.isValid = false;
+			this.assignedTable.setIsReserved(false);
 			updatedValidity = false;
 		}
 		else {
@@ -247,7 +248,7 @@ public class Reservation {
 			updatedValidity = true;
 		}
 		return updatedValidity;
-	}
+	}	
 
 	/**
 	 * Displays the details of the reservation.

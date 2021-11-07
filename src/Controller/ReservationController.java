@@ -24,6 +24,7 @@ public class ReservationController {
 	 * @param name		the name of the customer
 	 * @param contactNo	the contact number of the customer
 	 * @param memberID	the member ID of the customer, "no" if not a member
+	 * @return 			the reservation that is created
 	 */
 	public Reservation createReservation(int resID, Date resTime, int paxSize, String name, String contactNo, String memberID) {
 		

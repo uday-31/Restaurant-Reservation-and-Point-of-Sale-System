@@ -1,13 +1,11 @@
 package UI;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 import Controller.MenuController;
 import Controller.OrderController;
+import Controller.OrderInvoiceController;
 import Controller.ReservationController;
 import Controller.TableController;
-import Entity.MenuItemType;
 import Entity.Restaurant;
 
 /**
@@ -17,7 +15,7 @@ public class RestaurantAppUI {
 	
 	/**
 	 * The main function implementing user interfacing functionality.
-	 * @param args
+	 * @param args	optional arguments
 	 */
 	public static void main(String[] args)
     {
@@ -29,6 +27,7 @@ public class RestaurantAppUI {
 		OrderController oc = new OrderController();
 		ReservationController rc = new ReservationController();
 		TableController tc = new TableController();
+		OrderInvoiceController oic = new OrderInvoiceController();
      
 		Scanner scanner = new Scanner(System.in);
 		do {
@@ -77,13 +76,21 @@ public class RestaurantAppUI {
 				case 8:
 					TableUI.checkTableAvailability(scanner, tc);
 					break;
-					
-					
-					
+				case 9:
+					OrderInvoiceUI.printInvoiceAndVacate(scanner, oic);
+					break;
+				case 10:
+					OrderInvoiceUI.printSalesRevenueReport(scanner, oic);
+					break;
+				case 0:
+					break;
+				default:
+					System.out.println("Enter a valid number!");
+					break;
 			}
-		
-		} while (choice != 0);		
-		
+		} while (choice != 0);	
+		System.out.println();
+		System.out.println("Thank you for using the application!");
     }
 	
 	

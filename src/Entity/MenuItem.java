@@ -32,11 +32,11 @@ public class MenuItem {
 
 	/**
 	 * Initializes the menu item using the given input
-	 * @param intID	the ID, in serial numbers
-	 * @param name	the name of the item
-	 * @param desc	the food description
-	 * @param price	the price, without tax
-	 * @param type	the type of the menu item
+	 * @param itemID	the ID, in serial numbers
+	 * @param name		the name of the item
+	 * @param desc		the food description
+	 * @param price		the price, without tax
+	 * @param type		the type of the menu item
 	 */
 	public MenuItem(int itemID, String name, String desc, double price, MenuItemType type) {
 		this.itemID = itemID;

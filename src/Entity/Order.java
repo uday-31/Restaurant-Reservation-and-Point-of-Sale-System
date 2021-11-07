@@ -124,7 +124,7 @@ public class Order {
 
 	/**
 	 * Updates the member ID of the customer who placed this order, in case it was recorded incorrectly.
-	 * @param memberID
+	 * @param memberID	the new member ID of the customer
 	 */
 	public void setMemberID(String memberID) {
 		this.memberID = memberID;
@@ -209,7 +209,7 @@ public class Order {
 
 	/**
 	 * Displays an item from the list of ordered items.
-	 * @param itemID	the serial number of the item to be displayed
+	 * @param idx	the serial number of the item to be displayed
 	 */
 	public void viewOrderedItem(int idx) {
 		System.out.println();
@@ -278,7 +278,7 @@ public class Order {
 
 	/**
 	 * Displays a set from the list of promotional sets ordered.
-	 * @param setID	the serial number of the set to be displayed
+	 * @param idx	the serial number of the set to be displayed
 	 */
 	public void viewOrderedSet(int idx) {
 		System.out.println();
