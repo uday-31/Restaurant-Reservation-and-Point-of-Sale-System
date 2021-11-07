@@ -92,7 +92,7 @@ public class RestaurantAppUI {
 					scanner.nextLine();
 					System.out.print("Enter the new description: ");
 					String newDesc = scanner.nextLine();
-					res=mc.updateMenuItem(changeID_2, newDesc);
+					res=mc.updateMenuItemDesc(changeID_2, newDesc);
 					if(res==1) {
 						System.out.println("Description changed successfully!");
 					}
