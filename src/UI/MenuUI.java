@@ -203,7 +203,7 @@ public class MenuUI {
 		scanner.nextLine();
 		System.out.print("Enter the new description: ");
 		String newDesc = scanner.nextLine();
-		res=mc.updateMenuItem(changeID, newDesc);
+		res=mc.updateMenuItemDesc(changeID, newDesc);
 		if(res==1) {
 			System.out.println("Description changed successfully!");
 		}
