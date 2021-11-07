@@ -60,7 +60,7 @@ public class RestaurantAppUI {
 					MenuUI.createUpdateRemovePromotionSet(scanner, mc);
 					break;
 				case 3:
-					OrderUI.createOrder(scanner, oc);
+					OrderUI.createOrder(scanner, oc, rc);
 					break;
 				case 4:
 					OrderUI.viewOrder(scanner, oc);
@@ -73,6 +73,9 @@ public class RestaurantAppUI {
 					break;
 				case 7:
 					ReservationUI.checkRemoveReservation(scanner, rc);
+					break;
+				case 8:
+					TableUI.checkTableAvailability(scanner, tc);
 					break;
 					
 					

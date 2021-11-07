@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+
+import Controller.TableController;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import UI.OrderInvoiceUI;
 
 /**
  * Represents the restaurant and contains its entities.
@@ -33,7 +34,7 @@ public class Restaurant {
 	/**
 	 * Invoices for orders completed at the restaurant.
 	 */
-	public static ArrayList<OrderInvoiceUI> invoices;
+	public static ArrayList<OrderInvoice> invoices;
 	
 	/**
 	 * Staffs employed by the restaurant.
@@ -294,7 +295,7 @@ public class Restaurant {
 		try {
 			if (tempFile.createNewFile()) {
 				PrintWriter writer = new PrintWriter("Data/orders.txt", "UTF-8");
-				writer.println("1_1_4_1_1_2_1_3_1_true_1_1_01/01/2021 13:00:00_A987654567");
+				writer.println("1_3_4_1_1_2_1_3_1_true_1_1_01/01/2021 13:00:00_A987654567");
 				writer.println("2_2_5_0_true_1_2_2_2_02/02/2021 15:00:00_A765434565");
 				writer.println("3_8_4_1_2_5_1_true_0_03/03/2021 20:00:00_0");
 				writer.close();
@@ -317,6 +318,7 @@ public class Restaurant {
 	    	int orderID = input.nextInt();
 	        int tableID = input.nextInt();
 	        Table table = tables.get(tableID-1);
+	        tables.get(tableID-1).setIsOccupied(true);
 	        int staffID = input.nextInt();
 	        Staff staff = staffs.get(staffID-1);
 	        
@@ -346,13 +348,16 @@ public class Restaurant {
 	        
 	        String memberID = input.next();
 	        
+	        Order order;
 	        if(Objects.equals(memberID,"0")) {
-	        	orders.add(new Order(orderID, table, staff, orderedItems, orderedSets, completed, timestamp));
+	        	order = new Order(orderID, table, staff, orderedItems, orderedSets, completed, timestamp);
+	        	orders.add(order);
 	        }
 	        else {
-	        	orders.add(new Order(orderID, table, staff, orderedItems, orderedSets, completed, timestamp, memberID));
+	        	order = new Order(orderID, table, staff, orderedItems, orderedSets, completed, timestamp, memberID);
+	        	orders.add(order);
 	        }
-	        
+	        tables.get(tableID-1).setCurrentOrder(order);
 	    }
 	 
 	    input.close();
@@ -366,7 +371,7 @@ public class Restaurant {
 	 */
 	private static void initInvoices() throws FileNotFoundException, ParseException {
 		
-		invoices = new ArrayList<OrderInvoiceUI>();
+		invoices = new ArrayList<OrderInvoice>();
 		
 		File tempFile = new File("Data/invoices.txt");
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -399,7 +404,7 @@ public class Restaurant {
 	        
 	        Date timestamp = format.parse(input.next());
 	        
-	        OrderInvoiceUI invoice = new OrderInvoiceUI(timestamp, thisOrder);
+	        OrderInvoice invoice = new OrderInvoice(timestamp, thisOrder);
 	        invoices.add(invoice);
 	    }
 		
@@ -451,7 +456,11 @@ public class Restaurant {
 	        String contactNo = input.next();
 	        String memberID = input.next();
 	        
-	        reservations.add(new Reservation(resID, timestamp, paxSize, name, contactNo, memberID));
+	        Reservation res = new Reservation(resID, timestamp, paxSize, name, contactNo, memberID);
+	        
+	        reservations.add(res);
+	        TableController tc = new TableController();
+	        tc.assignTable(res);
 	    }
 	 
 	    input.close();

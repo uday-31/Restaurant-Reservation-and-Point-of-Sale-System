@@ -25,7 +25,7 @@ public class ReservationController {
 	 * @param contactNo	the contact number of the customer
 	 * @param memberID	the member ID of the customer, "no" if not a member
 	 */
-	public void createReservation(int resID, Date resTime, int paxSize, String name, String contactNo, String memberID) {
+	public Reservation createReservation(int resID, Date resTime, int paxSize, String name, String contactNo, String memberID) {
 		
 		Reservation res;
 		
@@ -37,6 +37,7 @@ public class ReservationController {
 		}
 		
 		reservations.add(res);
+		return res;
 	}
 
 	/**
@@ -66,6 +67,7 @@ public class ReservationController {
 	 * @param idxRes	the index of the reservation to be removed
 	 */
 	public void deleteReservation(int idxRes) {
+		reservations.get(idxRes).resetReservation();
 		reservations.remove(idxRes);
 	}
 	
@@ -75,6 +77,20 @@ public class ReservationController {
 	 */
 	public void displayReservation(int idxRes) {
 		reservations.get(idxRes).display();
+	}
+	
+	/**
+	 * Gets the reservation name for a given reservation ID.
+	 * @param resID		the ID of the reservation
+	 * @return			the name of the customer, or null if the ID can't be found
+	 */
+	public String getReservationName(int resID) {
+		for(int i=0; i<reservations.size();++i) {
+			if(reservations.get(i).getResID()==resID) {
+				return reservations.get(i).getName();
+			}
+		}
+		return "null";
 	}
 
 }

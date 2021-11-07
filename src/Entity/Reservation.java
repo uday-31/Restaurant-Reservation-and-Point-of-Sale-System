@@ -69,7 +69,6 @@ public class Reservation {
 		this.contactNo = contactNo;
 		this.memberID = memberID;
 		this.isValid = true;
-		assignTable();
 	}
 	
 	/**
@@ -88,7 +87,6 @@ public class Reservation {
 		this.contactNo = contactNo;
 		this.memberID = "";
 		this.isValid = true;
-		assignTable();
 	}
 
 	/**
@@ -224,7 +222,7 @@ public class Reservation {
 	 */
 	public void resetReservation() {
 		this.resID = -1;
-		this.assignedTable.setIsOccupied(false);
+		this.assignedTable.setIsReserved(false);
 		this.resTime = null;
 		this.paxSize = 0;
 		this.name = "";
@@ -309,18 +307,5 @@ public class Reservation {
 		return expiry;  
 	}
 
-	/** 
-	 * Assigns a table to the reservation if available, null otherwise.
-	 */
-	private void assignTable() {
-		for(int i=0; i<Restaurant.tables.size(); ++i) {
-			if((Restaurant.tables.get(i).getIsOccupied()==false&Restaurant.tables.get(i).getIsReserved()==false)&Restaurant.tables.get(i).getTableSize()>=this.paxSize) {
-				this.assignedTable = Restaurant.tables.get(i);
-				Restaurant.tables.get(i).setIsReserved(true);
-				return;
-			}
-		}
-		this.assignedTable = null;
-	}
 
 }

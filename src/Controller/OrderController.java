@@ -7,6 +7,7 @@ import Entity.Menu;
 import Entity.Order;
 import Entity.OrderedItem;
 import Entity.OrderedSet;
+import Entity.Reservation;
 import Entity.Restaurant;
 import Entity.Staff;
 import Entity.Table;
@@ -35,18 +36,34 @@ public class OrderController {
 	 * The restaurant's tables.
 	 */
 	private static ArrayList<Table> tables = Restaurant.tables;
+	
+	/**
+	 * The restaurant's reservations.
+	 */
+	private static ArrayList<Reservation> reservations = Restaurant.reservations;
 
 	/**
 	 * Creates an order based on the given input.
 	 * @param orderID		the ID of the order
-	 * @param tableID		the ID of the order's table
+	 * @param resID		the ID of the customer's reservation
 	 * @param creatorID		the ID of the order's creator
 	 * @param itemIndices	the indices of the menu items in the order
 	 * @param itemQtys		the quantities of the respective items
 	 * @param setIndices	the indices of the sets in the order
 	 * @param setQtys		the quantities of the respective sets
+	 * @return 				the table number of the order
 	 */
-	public void createOrder(int orderID, int tableID, int creatorID, ArrayList<Integer> itemIndices, ArrayList<Integer> itemQtys, ArrayList<Integer> setIndices, ArrayList<Integer> setQtys, String memberID)  {
+	public int createOrder(int orderID, int resID, int creatorID, ArrayList<Integer> itemIndices, ArrayList<Integer> itemQtys, ArrayList<Integer> setIndices, ArrayList<Integer> setQtys, String memberID)  {
+		
+		int tableID=-1;
+		for(int i=0; i<reservations.size();++i) {
+			if(reservations.get(i).getResID()==resID) {
+				tableID = reservations.get(i).getAssignedTable().getTableID();
+				tables.get(tableID-1).setIsOccupied(true);
+				tables.get(tableID-1).setIsReserved(false);
+				tables.get(tableID-1).setReservation(null);
+			}
+		}
 		Table table = tables.get(tableID-1);
 		Staff creator = staffs.get(creatorID-1);
 		
@@ -72,6 +89,8 @@ public class OrderController {
 		}
 		
 		orders.add(order);
+		tables.get(tableID-1).setCurrentOrder(order);
+		return tableID;
 	}
 
 	/**

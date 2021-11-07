@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import Controller.ReservationController;
 import Controller.TableController;
+import Entity.Reservation;
 
 /**
  * Interfacing with the user for reservation-related functions.
@@ -60,10 +61,12 @@ public class ReservationUI {
 		System.out.print("Enter the Member ID of the customer (\"no\" if not a member): ");
 		String memberID = scanner.nextLine();
 		
-		rc.createReservation(resID, date, paxSize, name, contactNo, memberID);
+		Reservation res = rc.createReservation(resID, date, paxSize, name, contactNo, memberID);
+		int table = tc.assignTable(res);
 		
 		System.out.println();
-		System.out.println("Reservation created successfully! Press return to continue.");
+		System.out.println("Reservation for "+paxSize+" pax created successfully and assigned to table "+table+"!");
+		System.out.println("Press return to continue.");
 		scanner.nextLine();
 		
 	}

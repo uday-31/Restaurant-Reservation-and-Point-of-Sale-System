@@ -167,7 +167,7 @@ public class Table {
 		else
 			System.out.println("no");
 		if(this.currentOrder!=null) {
-			System.out.println("Current order: "+this.currentOrder.getCreator()+" "+this.currentOrder.getTimestamp());
+			System.out.println("Current order: "+this.currentOrder.getCreator().getName()+" "+this.currentOrder.getTimestamp());
 		}
 	}
 

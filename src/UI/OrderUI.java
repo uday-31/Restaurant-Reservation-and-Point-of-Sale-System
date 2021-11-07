@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Controller.OrderController;
+import Controller.ReservationController;
 
 /**
  * Interfacing with the user for order-related functions.
@@ -15,15 +16,19 @@ public class OrderUI {
 	 * @param scanner	the input scanner
 	 * @param oc		an object of OrderController class
 	 */
-	public static void createOrder(Scanner scanner, OrderController oc) {
+	public static void createOrder(Scanner scanner, OrderController oc, ReservationController rc) {
 		
 		System.out.println();
 		System.out.print("Enter the ID of the order: ");
 		int orderID = scanner.nextInt();
 		scanner.nextLine(); //to read the return
-		System.out.print("Enter the ID of the table: ");
-		int tableID = scanner.nextInt();
+		System.out.print("Enter the reservation ID: ");
+		int resID = scanner.nextInt();
 		scanner.nextLine(); //to read the return
+		String name = rc.getReservationName(resID);
+		System.out.println();
+		System.out.println("Creating order for "+name+"!");
+		System.out.println();
 		System.out.print("Enter the ID of the creator: ");
 		int creatorID = scanner.nextInt();
 		scanner.nextLine(); //to read the return
@@ -69,8 +74,8 @@ public class OrderUI {
 		System.out.print("Enter Member ID if member, \"no\" otherwise: ");
 		String memberID = scanner.nextLine();
 		
-		oc.createOrder(orderID, tableID, creatorID, itemIDs, itemQtys, setIDs, setQtys, memberID);
-		System.out.println("Order created!");
+		int tableID = oc.createOrder(orderID, resID, creatorID, itemIDs, itemQtys, setIDs, setQtys, memberID);
+		System.out.println("Order created and assigned to table "+tableID+"!");
 		
 		System.out.println();
 		System.out.println("Press return to continue.");

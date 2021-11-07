@@ -1,10 +1,15 @@
-package UI;
+package Controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 
-public class OrderInvoiceUI {
+import Entity.OrderInvoice;
+import Entity.Restaurant;
 
-
+public class OrderInvoiceController {
+	
+	private static ArrayList<OrderInvoice> invoices = Restaurant.invoices;
+	
 	/**
 	 * 
 	 * @param startDate
@@ -21,5 +26,14 @@ public class OrderInvoiceUI {
 		}
 		
 		System.out.println("Total Revenue: " + total);
+	}
+	
+	/**
+	 * 
+	 * @param idxTable
+	 */
+	public void printInvoiceAndVacate(int idxTable) {
+		invoices.get(idxTable).printInvoice();
+		tables.get(idxTable).setIsOccupied(false);
 	}
 }
