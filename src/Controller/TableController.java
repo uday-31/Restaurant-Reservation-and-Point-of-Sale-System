@@ -68,6 +68,21 @@ public class TableController {
 		}
 
 	}
+	
+	/**
+	 * 
+	 * @param idxTable
+	 */
+	public boolean checkFull(int paxSize) {
+		
+		for(int i=0; i<tables.size();++i) {
+			if ((tables.get(i).getIsOccupied() == false & tables.get(i).getIsReserved() == false)&tables.get(i).getTableSize()>=paxSize) {
+				return false;
+			}
+		}	
+		return true;
+
+	}
 
 	/**
 	 * 

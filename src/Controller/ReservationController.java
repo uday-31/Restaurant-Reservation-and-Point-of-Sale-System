@@ -1,51 +1,80 @@
 package Controller;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 import Entity.Reservation;
 import Entity.Restaurant;
 
+/**
+ * Controller class handling the restaurant's reservations.
+ */
 public class ReservationController {
 
+	/**
+	 * The restaurant's reservations.
+	 */
 	private static ArrayList<Reservation> reservations = Restaurant.reservations;
 
 	/**
-	 * 
-	 * @param resID
-	 * @param resTime
-	 * @param paxSize
-	 * @param name
-	 * @param contactNo
-	 * @param memberID
+	 * Creates a new reservation based on the input.
+	 * @param resID		the reservation ID
+	 * @param resTime	the reservation time
+	 * @param paxSize	the pax size of the reservation
+	 * @param name		the name of the customer
+	 * @param contactNo	the contact number of the customer
+	 * @param memberID	the member ID of the customer, "no" if not a member
 	 */
 	public void createReservation(int resID, Date resTime, int paxSize, String name, String contactNo, String memberID) {
-		Reservation res = new Reservation(resID, resTime, paxSize, name, contactNo, memberID);
+		
+		Reservation res;
+		
+		if(Objects.equals(memberID, "no")) {
+			res = new Reservation(resID, resTime, paxSize, name, contactNo);
+		}
+		else {
+			res = new Reservation(resID, resTime, paxSize, name, contactNo, memberID);
+		}
+		
 		reservations.add(res);
 	}
 
 	/**
-	 * 
-	 * @param idxRes
+	 * Finds a given reservation based on ID and updates its validity.
+	 * @param idRes	the ID of the reservation
+	 * @return 		the index of the reservation if found, -1 if invalid, -2 if not found
 	 */
-	public void checkRemoveReservation(int idxRes) {
-		System.out.println();
-		System.out.println("Reservation ID: " + reservations.get(idxRes).getResID());
-		System.out.println("Reservation Time: " + reservations.get(idxRes).getResTime());
-		System.out.println("Is Reservation Valid?: " + reservations.get(idxRes).getisValid());
-		System.out.println("Reservation Pax: " + reservations.get(idxRes).getPaxSize());
-		System.out.println("Customer Name: " + reservations.get(idxRes).getName());
-		System.out.println("Customer Contact: " + reservations.get(idxRes).getContactNo());
-		System.out.println("Customer Assigned Table: " + reservations.get(idxRes).getAssignedTable().getTableID());
+	public int checkReservation(int idRes) {
+		
+		boolean updatedValidity;
+		for(int i=0; i< reservations.size(); ++i) {
+			if(reservations.get(i).getResID()==idRes) {
+				updatedValidity=reservations.get(i).updateValidity();
+				if(updatedValidity==false)
+					return -1;
+				else {
+					return i;
+				}
+			}
+		}
+		return -2;
+
 	}
 
 	/**
-	 * 
-	 * @param idxRes
+	 * Deletes a given reservation.
+	 * @param idxRes	the index of the reservation to be removed
 	 */
 	public void deleteReservation(int idxRes) {
-		int id = reservations.get(idxRes).getResID();
 		reservations.remove(idxRes);
-		System.out.println("Successfully removed Reservation " + id);
+	}
+	
+	/**
+	 * Displays a given reservation.
+	 * @param idxRes	the index of the reservation to be displayed
+	 */
+	public void displayReservation(int idxRes) {
+		reservations.get(idxRes).display();
 	}
 
 }

@@ -68,6 +68,12 @@ public class RestaurantAppUI {
 				case 5:
 					OrderUI.addRemoveItemsSets(scanner, oc);
 					break;
+				case 6:
+					ReservationUI.createReservation(scanner, rc, tc);
+					break;
+				case 7:
+					ReservationUI.checkRemoveReservation(scanner, rc);
+					break;
 					
 					
 					

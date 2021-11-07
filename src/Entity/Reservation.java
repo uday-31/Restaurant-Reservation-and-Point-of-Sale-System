@@ -240,7 +240,7 @@ public class Reservation {
 	public boolean updateValidity() {
 		boolean updatedValidity;
 		Date curDate = new Date();  //gets current date
-		if (calculateExpiryTime().after(curDate)) {
+		if (curDate.after(calculateExpiryTime())) {
 			this.isValid = false;
 			updatedValidity = false;
 		}
@@ -316,6 +316,7 @@ public class Reservation {
 		for(int i=0; i<Restaurant.tables.size(); ++i) {
 			if((Restaurant.tables.get(i).getIsOccupied()==false&Restaurant.tables.get(i).getIsReserved()==false)&Restaurant.tables.get(i).getTableSize()>=this.paxSize) {
 				this.assignedTable = Restaurant.tables.get(i);
+				Restaurant.tables.get(i).setIsReserved(true);
 				return;
 			}
 		}
