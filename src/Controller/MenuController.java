@@ -241,7 +241,7 @@ public class MenuController {
 	}
 	
 	/**
-	 * Updates the promotion set's details
+	 * Updates the promotion set's details.
 	 * @param id	the id of the set
 	 * @param name	the new name of the set
 	 * @param desc	the new description of the set
@@ -264,7 +264,7 @@ public class MenuController {
 	}
 
 	/**
-	 * Displays the promotion set with the given ID
+	 * Displays the promotion set with the given ID.
 	 * @param id	the ID of the promotion set, 0 if all
 	 * @return		1 if successfully displayed, -1 if set not found
 	 */

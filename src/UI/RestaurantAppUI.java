@@ -36,10 +36,10 @@ public class RestaurantAppUI {
 			System.out.println("\nRestaurant App");
 			
 			System.out.println("[1] - Create/Update/Remove Menu Item");
-			System.out.println("[2] - Create/Update/Remove Promotion");
+			System.out.println("[2] - Create/Update/Remove Promotion Set");
 			System.out.println("[3] - Create Order");
 			System.out.println("[4] - View Order");
-			System.out.println("[5] - Add/Remove Order Items from Order");
+			System.out.println("[5] - Add/Remove Items or Sets from Order");
 			System.out.println("[6] - Create Reservation Booking");
 			System.out.println("[7] - Check/Remove Reservation Booking");
 			System.out.println("[8] - Check Table Availability");
@@ -58,6 +58,15 @@ public class RestaurantAppUI {
 					break;
 				case 2:
 					MenuUI.createUpdateRemovePromotionSet(scanner, mc);
+					break;
+				case 3:
+					OrderUI.createOrder(scanner, oc);
+					break;
+				case 4:
+					OrderUI.viewOrder(scanner, oc);
+					break;
+				case 5:
+					OrderUI.addRemoveItemsSets(scanner, oc);
 					break;
 					
 					

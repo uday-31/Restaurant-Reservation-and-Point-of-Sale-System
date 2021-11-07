@@ -1,12 +1,12 @@
 package Controller;
+import java.util.Date;
+import java.util.Objects;
 import java.util.ArrayList;
 
 import Entity.Menu;
-import Entity.MenuItem;
 import Entity.Order;
 import Entity.OrderedItem;
 import Entity.OrderedSet;
-import Entity.PromotionSet;
 import Entity.Restaurant;
 import Entity.Staff;
 import Entity.Table;
@@ -38,15 +38,15 @@ public class OrderController {
 
 	/**
 	 * Creates an order based on the given input.
-	 * @param orderID
-	 * @param table
-	 * @param creator
-	 * @param itemIndices
-	 * @param itemQtys
-	 * @param setIndices
-	 * @param setQtys
+	 * @param orderID		the ID of the order
+	 * @param tableID		the ID of the order's table
+	 * @param creatorID		the ID of the order's creator
+	 * @param itemIndices	the indices of the menu items in the order
+	 * @param itemQtys		the quantities of the respective items
+	 * @param setIndices	the indices of the sets in the order
+	 * @param setQtys		the quantities of the respective sets
 	 */
-	public void createOrder(int orderID, int tableID, int creatorID, ArrayList<Integer> itemIndices, ArrayList<Integer> itemQtys, ArrayList<Integer> setIndices, ArrayList<Integer> setQtys)  {
+	public void createOrder(int orderID, int tableID, int creatorID, ArrayList<Integer> itemIndices, ArrayList<Integer> itemQtys, ArrayList<Integer> setIndices, ArrayList<Integer> setQtys, String memberID)  {
 		Table table = tables.get(tableID-1);
 		Staff creator = staffs.get(creatorID-1);
 		
@@ -60,84 +60,150 @@ public class OrderController {
 			orderedSets.add(new OrderedSet(setQtys.get(i), menu.getPromotionSets().get(setIndices.get(i)-1)));
 		}
 		
-		Order order = new Order(orderID, table, creator, orderedItems, orderedSets);
+		Date timestamp = new Date();
+		
+		Order order;
+		
+		if(Objects.equals(memberID, "no")) {
+			order = new Order(orderID, table, creator, orderedItems, orderedSets, true, timestamp);
+		}
+		else {
+			order = new Order(orderID, table, creator, orderedItems, orderedSets, true, timestamp, memberID);
+		}
+		
 		orders.add(order);
 	}
 
 	/**
-	 * 
-	 * @param idxOrder
+	 * Displays an order with the given ID.
+	 * @param idxOrder	ID of the order
+	 * @return			1 if successfully displayed, -1 if order not found
 	 */
-	public void viewOrder(int idxOrder) {
-		System.out.println();
-		System.out.println("Order ID: " + orders.get(idxOrder).getOrderID());
-		System.out.println("Table ID: " + orders.get(idxOrder).getTable().getTableID());
-		System.out.println("Created by: " + orders.get(idxOrder).getCreator());
+	public int viewOrder(int idOrder) {
 		
-		System.out.println("***** List of Ordered Items *****");
-		for (int i=0; i<orders.get(idxOrder).getOrderedItems().size(); i++) {
-			orders.get(idxOrder).viewOrderedItem(i);
+		if(idOrder==0) {
+			for(int i=0; i<orders.size(); ++i) {
+				orders.get(i).display();
+			}
+			return 1;
 		}
 		
-		System.out.println("***** List of Ordered Sets *****");
-		for (int j=0; j<orders.get(idxOrder).getOrderedSets().size(); j++) {
-			orders.get(idxOrder).viewOrderedSet(j);
+		for(int i=0; i<orders.size(); ++i) {
+			if(orders.get(i).getOrderID()==idOrder) {
+				orders.get(i).display();
+				return 1;
+			}
 		}
+		return -1;
 		
 	}
 
 	/**
-	 * 
-	 * @param idxOrder
+	 * Removes an order with the given ID.
+	 * @param idOrder	ID of the order to be removed
+	 * @return			1 if successfully removed, -1 if order not found
 	 */
-	public void removeOrder(int idxOrder) {
-		int id = orders.get(idxOrder).getOrderID();
-		orders.remove(idxOrder);
-		System.out.println("Order " + id + " successfully removed");
+	public int removeOrder(int idOrder) {
+		
+		for(int i=0; i<orders.size(); ++i) {
+			if(orders.get(i).getOrderID()==idOrder) {
+				orders.remove(i);
+				return 1;
+			}
+		}
+		return -1;
 	}
 
 	/**
-	 * 
-	 * @param idxOrder
-	 * @param quantity
-	 * @param idxItem
+	 * Adds a menu item to an order with the given ID.
+	 * @param idOrder		ID of the order
+	 * @param quantity		Quantity of the item
+	 * @param menuItemID	ID of the menu item
+	 * @return 				1 if successfully added, -1 if item or order not found
 	 */
-	public void addItemToOrder(int idxOrder, int quantity, MenuItem menuitem) {
-		OrderedItem ordereditem = new OrderedItem(quantity, menuitem);
-		orders.get(idxOrder).getOrderedItems().add(ordereditem);
-		System.out.println("Successfully added Item " + menuitem.getName() + " with quantity " + quantity);
+	public int addItemToOrder(int idOrder, int quantity, int menuItemID) {
+		
+		for(int i=0; i<orders.size(); ++i) {
+			if(orders.get(i).getOrderID()==idOrder) {
+				for(int j=0; j<menu.getMenuItems().size(); ++j) {
+					if(menu.getMenuItems().get(j).getItemID()==menuItemID) {
+						orders.get(i).addOrderedItem(new OrderedItem(quantity, menu.getMenuItems().get(j)));
+						return 1;
+					}
+				}
+				return -1;
+			}
+		}
+		return -1;
 	}
 
 	/**
-	 * 
-	 * @param idxOrder
-	 * @param quantity
-	 * @param idxSet
+	 * Adds a promotion set to an order with the given ID.
+	 * @param idOrder		ID of the order
+	 * @param quantity		Quantity of the set
+	 * @param promoSetID	ID of the menu set
+	 * @return 				1 if successfully added, -1 if set or order not found
 	 */
-	public void addSetToOrder(int idxOrder, int quantity, PromotionSet promotionset) {
-		OrderedSet orderedset = new OrderedSet(quantity, promotionset);
-		orders.get(idxOrder).getOrderedSets().add(orderedset);
-		System.out.println("Successfully added Set " + promotionset.getName() + " with quantity " + quantity);
+	public int addSetToOrder(int idOrder, int quantity, int promoSetID) {
+		
+		for(int i=0; i<orders.size(); ++i) {
+			if(orders.get(i).getOrderID()==idOrder) {
+				for(int j=0; j<menu.getPromotionSets().size(); ++j) {
+					if(menu.getPromotionSets().get(j).getPromoID()==promoSetID) {
+						orders.get(i).addOrderedSet(new OrderedSet(quantity, menu.getPromotionSets().get(j)));
+						return 1;
+					}
+				}
+				return -1;
+			}
+		}
+		return -1;
 	}
 
 	/**
-	 * 
-	 * @param idxOrder
-	 * @param idxItem
+	 * Removes a menu item from an order with the given ID.
+	 * @param idOrder		ID of the order
+	 * @param quantity		Quantity of the item
+	 * @param menuItemID	ID of the menu item
+	 * @return 				1 if successfully removed, -1 if item or order not found
 	 */
-	public void removeItemFromOrder(int idxOrder, OrderedItem ordereditem) {
-		orders.get(idxOrder).getOrderedItems().remove(ordereditem);
-		System.out.println("Successfully removed Item " + ordereditem.getMenuItem().getName() + "from order");
+	public int removeItemFromOrder(int idOrder, int quantity, int menuItemID) {
+		
+		for(int i=0; i<orders.size(); ++i) {
+			if(orders.get(i).getOrderID()==idOrder) {
+				for(int j=0; j<menu.getMenuItems().size(); ++j) {
+					if(menu.getMenuItems().get(j).getItemID()==menuItemID) {
+						orders.get(i).removeOrderedItem(new OrderedItem(quantity, menu.getMenuItems().get(j)));
+						return 1;
+					}
+				}
+				return -1;
+			}
+		}
+		return -1;
 	}
 
 	/**
-	 * 
-	 * @param idxOrder
-	 * @param idxSet
+	 * Removes a set from an order with the given ID.
+	 * @param idOrder		ID of the order
+	 * @param quantity		Quantity of the set
+	 * @param promoSetID	ID of the menu set
+	 * @return 				1 if successfully removed, -1 if set or order not found
 	 */
-	public void removeSetFromOrder(int idxOrder, OrderedSet orderedset) {
-		orders.get(idxOrder).getOrderedSets().remove(orderedset);
-		System.out.println("Successfully removed Set " + orderedset.getPromotionSet().getName() + "from order");
+	public int removeSetFromOrder(int idOrder, int quantity, int promoSetID) {
+		
+		for(int i=0; i<orders.size(); ++i) {
+			if(orders.get(i).getOrderID()==idOrder) {
+				for(int j=0; j<menu.getPromotionSets().size(); ++j) {
+					if(menu.getPromotionSets().get(j).getPromoID()==promoSetID) {
+						orders.get(i).removeOrderedSet(new OrderedSet(quantity, menu.getPromotionSets().get(j)));
+						return 1;
+					}
+				}
+				return -1;
+			}
+		}
+		return -1;
 	}
 
 }

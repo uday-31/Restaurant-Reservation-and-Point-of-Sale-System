@@ -179,15 +179,23 @@ public class Restaurant {
 			if (tempFile.createNewFile()) {
 				PrintWriter writer = new PrintWriter("Data/tables.txt", "UTF-8");
 				int j = 1;
-				for(int i = 0; i < 5; i++){
+				for(int i = 0; i < 2; i++){
 					writer.println(j+"_2");
 					j++;
 				}
-				for(int i = 0; i < 5; i++){
-					writer.println(j+"_5");
+				for(int i = 0; i < 2; i++){
+					writer.println(j+"_4");
 					j++;
 				}
-				for(int i = 0; i < 5; i++){
+				for(int i = 0; i < 2; i++){
+					writer.println(j+"_6");
+					j++;
+				}
+				for(int i = 0; i < 2; i++){
+					writer.println(j+"_8");
+					j++;
+				}
+				for(int i = 0; i < 2; i++){
 					writer.println(j+"_10");
 					j++;
 				}
@@ -288,7 +296,7 @@ public class Restaurant {
 				PrintWriter writer = new PrintWriter("Data/orders.txt", "UTF-8");
 				writer.println("1_1_4_1_1_2_1_3_1_true_1_1_01/01/2021 13:00:00_A987654567");
 				writer.println("2_2_5_0_true_1_2_2_2_02/02/2021 15:00:00_A765434565");
-				writer.println("3_14_4_1_2_5_1_true_0_03/03/2021 20:00:00_0");
+				writer.println("3_8_4_1_2_5_1_true_0_03/03/2021 20:00:00_0");
 				writer.close();
 			}
 			tempFile = new File("Data/orders.txt");

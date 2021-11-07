@@ -168,6 +168,19 @@ public class Order {
 	 * @param orderedItem	the new item to be added.
 	 */
 	public void addOrderedItem(OrderedItem orderedItem) {
+		
+		for(int i=0; i<this.orderedItems.size();++i) {
+			if(this.orderedItems.get(i).getMenuItem().getItemID()==orderedItem.getMenuItem().getItemID()) {
+				
+				int qtyOld = orderedItems.get(i).getQuantity();
+				int qtyNew = orderedItem.getQuantity();
+				orderedItems.get(i).setQuantity(qtyOld+qtyNew);
+
+				computeTotalCost();
+				return;
+			}
+		}
+		
 		orderedItems.add(orderedItem);
 		computeTotalCost();
 	}
@@ -177,8 +190,21 @@ public class Order {
 	 * @param orderedItem	the item to be removed
 	 */
 	public void removeOrderedItem(OrderedItem orderedItem) {
-		orderedItems.remove(orderedItem);
-		computeTotalCost();
+		for(int i=0; i<this.orderedItems.size();++i) {
+			if(this.orderedItems.get(i).getMenuItem().getItemID()==orderedItem.getMenuItem().getItemID()) {
+				
+				int qtyOld = orderedItems.get(i).getQuantity();
+				int qtyNew = orderedItem.getQuantity();
+				if(qtyOld>qtyNew) {
+					orderedItems.get(i).setQuantity(qtyOld-qtyNew);
+				}
+				else {
+					orderedItems.remove(i);
+				}
+				computeTotalCost();
+				return;
+			}
+		}
 	}
 
 	/**
@@ -214,6 +240,16 @@ public class Order {
 	 * @param orderedSet	the set to be added
 	 */
 	public void addOrderedSet(OrderedSet orderedSet) {
+		
+		for(int i=0; i<this.orderedSets.size();++i) {
+			if(this.orderedSets.get(i).getPromotionSet().getPromoID()==orderedSet.getPromotionSet().getPromoID()) {
+				int qtyOld = orderedSets.get(i).getQuantity();
+				int qtyNew = orderedSet.getQuantity();
+				orderedSets.get(i).setQuantity(qtyOld+qtyNew);
+				computeTotalCost();
+				return;
+			}
+		}
 		orderedSets.add(orderedSet);
 		computeTotalCost();
 	}
@@ -223,8 +259,21 @@ public class Order {
 	 * @param orderedSet	the set to be removed
 	 */
 	public void removeOrderedSet(OrderedSet orderedSet) {
-		orderedSets.remove(orderedSet);
-		computeTotalCost();
+		
+		for(int i=0; i<this.orderedSets.size();++i) {
+			if(this.orderedSets.get(i).getPromotionSet().getPromoID()==orderedSet.getPromotionSet().getPromoID()) {
+				int qtyOld = orderedSets.get(i).getQuantity();
+				int qtyNew = orderedSet.getQuantity();
+				if(qtyOld>qtyNew) {
+					orderedSets.get(i).setQuantity(qtyOld-qtyNew);
+				}
+				else {
+					orderedSets.remove(i);
+				}
+				computeTotalCost();
+				return;
+			}
+		}
 	}
 
 	/**
@@ -300,6 +349,7 @@ public class Order {
 	public void display() {
 		System.out.println();
 		System.out.println("***Order Details***");
+		System.out.println("Order ID: "+this.orderID);
 		System.out.println("Time: "+this.timestamp);
 		System.out.println("Server: "+this.creator.getName());
 		System.out.println("Table: "+this.table.getTableID());
