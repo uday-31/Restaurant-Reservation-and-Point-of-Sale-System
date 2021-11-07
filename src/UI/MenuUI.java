@@ -93,7 +93,8 @@ public class MenuUI {
 			System.out.println("[2] - Add Menu Item to Promotion Set");
 			System.out.println("[3] - Remove Menu Item from Promotion Set");
 			System.out.println("[4] - Update Promotion Set");
-			System.out.println("[5] - Display Promotion Set");
+			System.out.println("[5] - Remove Promotion Set");
+			System.out.println("[6] - Display Promotion Set");
 			System.out.println("[0] - Go back");
 			System.out.println();
 			System.out.print("Enter your choice: ");
@@ -116,11 +117,15 @@ public class MenuUI {
 				case 4:
 					updateSet(scanner, mc);
 					break;
-					
+				
 				case 5:
+					removePromotionSet(scanner, mc);
+					break;
+					
+				case 6:
 					displaySet(scanner, mc);
 					break;
-				
+
 				default:
 					return;
 			
@@ -336,7 +341,7 @@ public class MenuUI {
 		}
 		
 		mc.createPromotionSet(ID, name, indices, desc, price);
-		System.out.println("Item created!");
+		System.out.println("Set created!");
 	
 	}
 	
@@ -423,6 +428,27 @@ public class MenuUI {
 		int res=mc.viewPromotionSet(viewID);
 		if(res==1) {
 			System.out.println("Set(s) displayed successfully!");
+		}
+		else {
+			System.out.println("Set not found.");
+		}
+	}
+	
+	
+	
+	/**
+	 * Removes a menu item.
+	 * @param scanner	the input scanner
+	 * @param mc		an object of MenuController class
+	 */
+	private static void removePromotionSet(Scanner scanner, MenuController mc) {
+		System.out.println();
+		System.out.print("Enter the ID of the Promotion Set to be removed: ");
+		int removeID = scanner.nextInt();
+		scanner.nextLine();
+		int res=mc.removePromotionSet(removeID);
+		if(res==1) {
+			System.out.println("Set removed successfully!");
 		}
 		else {
 			System.out.println("Set not found.");
