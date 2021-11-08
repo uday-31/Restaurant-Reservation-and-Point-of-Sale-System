@@ -6,7 +6,7 @@
 - to gain familiarity with using Java as an object oriented programming language
 
 ## Description
-RRPSS is an application to computerize the processes of making reservations, recording orderss and displaying sale records.
+RRPSS is an application to computerize the processes of making reservations, recording orders and displaying sale records.
 
 Here is some information about the application:
 - Menu items are categorized according to their type, i.e., appetiser, drinks, main course, and dessert.
@@ -22,6 +22,18 @@ Here is some information about the application:
 - An order invoice is printed to list the order details (e.g., table number, timestamp) and a complete breakdown of order items details with taxes.
 - Discounts are given to customers who hold membership of the restaurant.
 - Sale revenue report details the period, individual sale items (either a la carte or promotional items) and total revenue.
+
+## Functionality
+- Create/Update/Remove menu item 
+- Create/Update/Remove promotion
+- Create order
+- View order
+- Add/Remove order item/s to/from order
+- Create reservation booking
+- Check/Remove reservation booking
+- Check table availability
+- Print order invoice
+- Print sale revenue report by period (eg day or month)
 
 ## UML Class Diagram
 ![UML Class Diagram](https://github.com/uday-31/Restaurant-Reservation-and-Point-of-Sale-System/blob/1ee4c5778532f0371677cfc83fa83e695aace78e/UML%20Class%20Diagram/RRPSS.jpg)
