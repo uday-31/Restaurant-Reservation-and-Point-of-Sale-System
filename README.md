@@ -24,16 +24,16 @@ Here is some information about the application:
 - Sale revenue report details the period, individual sale items (either a la carte or promotional items) and total revenue.
 
 ## Functionality
-- Create/Update/Remove menu item 
-- Create/Update/Remove promotion
+- Create/update/remove menu item 
+- Create/update/remove promotion set
 - Create order
 - View order
-- Add/Remove order item/s to/from order
+- Add/remove order item(s) to/from order
 - Create reservation booking
-- Check/Remove reservation booking
+- Check/remove reservation booking
 - Check table availability
 - Print order invoice
-- Print sale revenue report by period (eg day or month)
+- Print sale revenue report by period (e.g. day or month)
 
 ## UML Class Diagram
 ![UML Class Diagram](https://github.com/uday-31/Restaurant-Reservation-and-Point-of-Sale-System/blob/1ee4c5778532f0371677cfc83fa83e695aace78e/UML%20Class%20Diagram/RRPSS.jpg)
