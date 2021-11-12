@@ -379,6 +379,7 @@ public class Order {
 	 * Computes the total cost of this order as the sum of prices of items and sets.
 	 */
 	private void computeTotalCost() {
+		this.totalCost = 0;
 		for (int i=0; i <orderedItems.size(); i++) {
 			this.totalCost += orderedItems.get(i).getCost();
 		}
