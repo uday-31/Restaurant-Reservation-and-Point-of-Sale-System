@@ -277,7 +277,7 @@ public class Reservation {
 			}
 		}
 		else {
-			System.out.println("Reservation invalid");
+			System.out.println("Reservation invalid as "+expiryMins+" minutes have passed since reservation time!");
 		}
 		
 		
