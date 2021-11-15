@@ -1,4 +1,5 @@
 # Restaurant-Reservation-and-Point-of-Sale-System
+This project was done for the requirements of CZ2002 Object Oriented Design and Programming, along with my group members Nicholas, Hrishikesh, and Krithika.
 
 ## Objectives
 - to apply Object-Oriented (OO) concepts
